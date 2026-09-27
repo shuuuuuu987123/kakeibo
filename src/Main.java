@@ -1,7 +1,13 @@
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
+		Scanner stdIn = new Scanner(System.in);
+
+		int choice = stdIn.nextInt();
+		System.out.println("選んだ番号：" + choice);
+
 		//===家計簿===//
 		System.out.println("1.追加");
 		System.out.println("2.一覧");
@@ -9,7 +15,7 @@ public class Main {
 		System.out.println("4.月別集計");
 		System.out.println("5.保存して終了");
 
-		Entry e = new Entry("1900-01-01","支出",1000,"昼食");
+		Entry e = new Entry("1900-01-01", "支出", 1000, "昼食");
 
 		System.out.println(e);
 	}

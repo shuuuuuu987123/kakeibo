@@ -6,15 +6,16 @@ public class Entry {
 	private String note;//メモ
 
 	//===コンストラクタ===//
-	public Entry(String date, String classfication, int amount, String note) {
+	public Entry(String date, String classification, int amount, String note) {
 		this.date = date;//日付
-		this.classification = classfication;//区分
+		this.classification = classification;//区分
 		this.amount = amount;//金額
 		this.note = note;//メモ
 	}
-@Override
+
+	@Override
 	public String toString() {
-		return String.format("%s %s %d %s", date, classification, amount, note);
+		return String.format("%s %s %d円 %s", date, classification, amount, note);
 	}
 
 }

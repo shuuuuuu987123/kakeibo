@@ -1,0 +1,19 @@
+# build output (javac / Eclipse bin)
+*.class
+/bin/
+/out/
+/build/
+
+# runtime data
+kakeibo.csv
+
+# Eclipse workspace / project metadata
+.metadata/
+Servers/
+.settings/
+
+# OS / editor
+Thumbs.db
+.DS_Store
+*~
+*.bak

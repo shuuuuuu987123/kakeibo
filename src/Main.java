@@ -1,31 +1,75 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
-		ArrayList<Entry> list =new ArrayList<>();
+		ArrayList<Entry> list = new ArrayList<>();
 		Scanner stdIn = new Scanner(System.in);
-
+		boolean running = true;
 		//===家計簿===//
-		System.out.println("1.追加");
-		System.out.println("2.一覧");
-		System.out.println("3.削除");
-		System.out.println("4.月別集計");
-		System.out.println("5.保存して終了");
-		
-		int choice = stdIn.nextInt();
-		System.out.println("選んだ番号：" + choice);
-		switch (choice) {
-		case 1: System.out.println("追加を選びました");break;
-		case 2: System.out.println("一覧を選びました");break;
-		case 3: System.out.println("削除を選びました");break;
-		case 4: System.out.println("月別集計を選びました");break;
-		case 5: System.out.println("保存して終了を選びました");break;
-		default: System.out.println("1~5の番号を入力してください");break;
-		}
-		
-		Entry e = new Entry("1900-01-01", "支出", 1000, "昼食");
+		while (running) {
+			System.out.println("1.追加");
+			System.out.println("2.一覧");
+			System.out.println("3.削除");
+			System.out.println("4.月別集計");
+			System.out.println("5.保存して終了");
 
-		System.out.println(e);
+			int choice = stdIn.nextInt();
+			System.out.println("選んだ番号：" + choice);
+
+			switch (choice) {
+			case 1:
+				System.out.print("日付：");
+				String date = stdIn.next();
+				System.out.print("区分：");
+				String classification = stdIn.next();
+				System.out.print("金額：");
+				int amount = stdIn.nextInt();
+				System.out.print("メモ：");
+				String note = stdIn.next();
+				list.add(new Entry(date, classification, amount, note));
+				System.out.println("追加しました");
+				break;
+			case 2:
+				if (list.isEmpty()) {
+					System.out.println("データがありません");
+				} else {
+					for (Entry entry : list) {
+						System.out.println(entry);
+					}
+					System.out.println("件数：" + list.size());
+				}
+				break;
+			case 3:
+				if (list.isEmpty()) {
+					System.out.println("データがありません");
+					break;
+				}
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println((i + 1) + "：" + list.get(i));
+				}
+				System.out.print("削除する番号");
+				int no = stdIn.nextInt();
+				if (no >= 1 && no <= list.size()) {
+					list.remove(no - 1);
+					System.out.println("削除を選びました");
+				} else {
+					System.out.println("その番号はありません");
+				}
+				break;
+			case 4:
+				System.out.println("月別集計を選びました");
+				break;
+			case 5:
+				System.out.println("終了します");
+				running = false;
+				break;
+			default:
+				System.out.println("1~5の番号を入力してください");
+				break;
+			}
+
+		}
 	}
 }

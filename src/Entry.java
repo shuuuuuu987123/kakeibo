@@ -13,6 +13,22 @@ public class Entry {
 		this.note = note;//メモ
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public String getClassification() {
+		return classification;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s %d円 %s", date, classification, amount, note);

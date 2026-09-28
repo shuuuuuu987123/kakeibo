@@ -59,7 +59,22 @@ public class Main {
 				}
 				break;
 			case 4:
-				System.out.println("月別集計を選びました");
+				System.out.println("集計する年月：");
+				String month = stdIn.next();
+				int income = 0;
+				int expense = 0;
+				for (Entry entry : list) {
+					if (entry.getDate().startsWith(month)) {
+						if (entry.getClassification().equals("収入")) {
+							income += entry.getAmount();
+						} else {
+							expense += entry.getAmount();
+						}
+					}
+				}
+				System.out.println("収入：" + income + "円");
+				System.out.println("支出：" + expense + "円");
+				System.out.println("差引：" + (income - expense) + "円");
 				break;
 			case 5:
 				System.out.println("終了します");

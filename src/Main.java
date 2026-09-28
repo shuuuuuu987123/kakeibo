@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,7 +51,7 @@ public class Main {
 				for (int i = 0; i < list.size(); i++) {
 					System.out.println((i + 1) + "：" + list.get(i));
 				}
-				System.out.print("削除する番号");
+				System.out.print("削除する番号：");
 				int no = stdIn.nextInt();
 				if (no >= 1 && no <= list.size()) {
 					list.remove(no - 1);
@@ -59,7 +61,7 @@ public class Main {
 				}
 				break;
 			case 4:
-				System.out.println("集計する年月：");
+				System.out.print("集計する年月：");
 				String month = stdIn.next();
 				int income = 0;
 				int expense = 0;
@@ -77,7 +79,17 @@ public class Main {
 				System.out.println("差引：" + (income - expense) + "円");
 				break;
 			case 5:
-				System.out.println("終了します");
+				try(PrintWriter out= new PrintWriter("kakeibo.csv","UTF-8")){
+					for(Entry entry : list) {
+						out.println(entry.getDate()+","
+								+entry.getClassification()+","
+								+entry.getAmount()+","
+								+entry.getNote());
+					}
+				}catch(IOException e) {
+					System.out.println("保存に失敗しました："+e.getMessage());
+				}
+				System.out.println("保存して終了します");
 				running = false;
 				break;
 			default:

@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,6 +11,22 @@ public class Main {
 		ArrayList<Entry> list = new ArrayList<>();
 		Scanner stdIn = new Scanner(System.in);
 		boolean running = true;
+
+		try (Scanner fileIn = new Scanner(new File("kakeibo.csv"), "UTF-8")) {
+			while (fileIn.hasNextLine()) {
+				String line = fileIn.nextLine();
+				if (line.isEmpty())
+					continue;
+				String[] parts = line.split(",");
+				String d = parts[0];
+				String c = parts[1];
+				int a = Integer.parseInt(parts[2]);
+				String n = parts[3];
+				list.add(new Entry(d, c, a, n));
+			}
+		} catch (FileNotFoundException e) {
+			//
+		}
 		//===家計簿===//
 		while (running) {
 			System.out.println("1.追加");
@@ -79,15 +97,15 @@ public class Main {
 				System.out.println("差引：" + (income - expense) + "円");
 				break;
 			case 5:
-				try(PrintWriter out= new PrintWriter("kakeibo.csv","UTF-8")){
-					for(Entry entry : list) {
-						out.println(entry.getDate()+","
-								+entry.getClassification()+","
-								+entry.getAmount()+","
-								+entry.getNote());
+				try (PrintWriter out = new PrintWriter("kakeibo.csv", "UTF-8")) {
+					for (Entry entry : list) {
+						out.println(entry.getDate() + ","
+								+ entry.getClassification() + ","
+								+ entry.getAmount() + ","
+								+ entry.getNote());
 					}
-				}catch(IOException e) {
-					System.out.println("保存に失敗しました："+e.getMessage());
+				} catch (IOException e) {
+					System.out.println("保存に失敗しました：" + e.getMessage());
 				}
 				System.out.println("保存して終了します");
 				running = false;

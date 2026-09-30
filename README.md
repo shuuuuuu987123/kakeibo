@@ -37,3 +37,43 @@ Javaで作った、コマンドラインで動く家計簿アプリです。
 ## 開発環境
 - Java（JDK 17）
 - Eclipse
+
+## システム構成
+
+### クラス構成
+
+```mermaid
+classDiagram
+    class Main {
+        +main(String[] args)
+    }
+    class Entry {
+        -String date
+        -String classification
+        -int amount
+        -String note
+        +getDate() String
+        +getAmount() int
+        +toString() String
+    }
+    Main --> Entry : 生成・一覧を保持
+```
+
+### 処理の流れ
+
+```mermaid
+flowchart TD
+    A[起動] --> B[kakeibo.csv を読み込む]
+    B --> C[メニュー表示]
+    C --> D{番号を入力}
+    D -->|1| E[収支を追加]
+    D -->|2| F[一覧表示]
+    D -->|3| G[削除]
+    D -->|4| H[月別集計]
+    D -->|5| I[CSVに保存]
+    I --> J[終了]
+    E --> C
+    F --> C
+    G --> C
+    H --> C
+```

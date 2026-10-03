@@ -18,19 +18,19 @@ public class Main {
 			System.out.println("5.月別集計");
 			System.out.println("6.保存して終了");
 
-			int choice = stdIn.nextInt();
+			int choice = readInt(stdIn);
 			System.out.println("選んだ番号：" + choice);
 
 			switch (choice) {
 			case 1:
 				System.out.print("日付：");
-				String date = stdIn.next();
+				String date = readLine(stdIn);
 				System.out.print("区分：");
-				String classification = stdIn.next();
+				String classification = readLine(stdIn);
 				System.out.print("金額：");
-				int amount = stdIn.nextInt();
+				int amount = readInt(stdIn);
 				System.out.print("メモ：");
-				String note = stdIn.next();
+				String note = readLine(stdIn);
 				kakeibo.add(new Entry(date, classification, amount, note));
 				System.out.println("追加しました");
 				break;
@@ -53,7 +53,7 @@ public class Main {
 					System.out.println((i + 1) + "：" + kakeibo.get(i));
 				}
 				System.out.print("削除する番号：");
-				int no = stdIn.nextInt();
+				int no = readInt(stdIn);
 				if (no >= 1 && no <= kakeibo.size()) {
 					kakeibo.remove(no - 1);
 					System.out.println("削除を選びました");
@@ -70,17 +70,17 @@ public class Main {
 					System.out.println((i + 1) + ":" + kakeibo.get(i));
 				}
 				System.out.print("編集する番号：");
-				int editNo = stdIn.nextInt();
+				int editNo = readInt(stdIn);
 				if (editNo >= 1 && editNo <= kakeibo.size()) {
 					Entry target = kakeibo.get(editNo - 1);
 					System.out.print("新しい日付（今：" + target.getDate() + "）：");
-					String nd = stdIn.next();
+					String nd = readLine(stdIn);
 					System.out.print("新しい区分（今：" + target.getClassification() + "）：");
-					String nc = stdIn.next();
+					String nc = readLine(stdIn);
 					System.out.print("新しい金額（今：" + target.getAmount() + "）：");
-					int na = stdIn.nextInt();
+					int na = readInt(stdIn);
 					System.out.print("新しいメモ（今：" + target.getNote() + "）：");
-					String nn = stdIn.next();
+					String nn = readLine(stdIn);
 					kakeibo.set(editNo - 1, new Entry(nd, nc, na, nn));
 					System.out.println("編集しました");
 				} else {
@@ -89,7 +89,7 @@ public class Main {
 				break;
 			case 5:
 				System.out.print("集計する年月：");
-				String month = stdIn.next();
+				String month = readLine(stdIn);
 				int[] sum = kakeibo.summary(month);
 				System.out.println("収入：" + sum[0] + "円");
 				System.out.println("支出：" + sum[1] + "円");
@@ -110,5 +110,26 @@ public class Main {
 			}
 
 		}
+	}
+	static int readInt(Scanner sc) {
+	    while (true) {
+	        String line = sc.nextLine().trim();
+	        if (line.isEmpty())
+	            continue;
+	        try {
+	            return Integer.parseInt(line);
+	        } catch (NumberFormatException e) {
+	            System.out.print("数字で入力してください：");
+	        }
+	    }
+	}
+
+	static String readLine(Scanner sc) {
+	    while (true) {
+	        String line = sc.nextLine().trim();
+	        if (!line.isEmpty())
+	            return line;
+	        System.out.print("入力してください：");
+	    }
 	}
 }

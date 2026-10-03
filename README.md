@@ -48,6 +48,18 @@ classDiagram
     class Main {
         +main(String[] args)
     }
+    class Kakeibo {
+        -ArrayList~Entry~ list
+        +add(Entry) void
+        +isEmpty() boolean
+        +size() int
+        +get(int) Entry
+        +remove(int) void
+        +set(int, Entry) void
+        +save() void
+        +load() void
+        +summary(String) int[]
+    }
     class Entry {
         -String date
         -String classification
@@ -57,7 +69,8 @@ classDiagram
         +getAmount() int
         +toString() String
     }
-    Main --> Entry : 生成・一覧を保持
+    Main --> Kakeibo : 利用
+    Kakeibo --> Entry : 保持
 ```
 
 ### 処理の流れ

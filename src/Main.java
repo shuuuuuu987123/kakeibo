@@ -32,8 +32,9 @@ public class Main {
 			System.out.println("1.追加");
 			System.out.println("2.一覧");
 			System.out.println("3.削除");
-			System.out.println("4.月別集計");
-			System.out.println("5.保存して終了");
+			System.out.println("4.編集");
+			System.out.println("5.月別集計");
+			System.out.println("6.保存して終了");
 
 			int choice = stdIn.nextInt();
 			System.out.println("選んだ番号：" + choice);
@@ -79,6 +80,32 @@ public class Main {
 				}
 				break;
 			case 4:
+				if (list.isEmpty()) {
+					System.out.println("データがありません");
+					break;
+				}
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println((i + 1) + ":" + list.get(i));
+				}
+				System.out.print("編集する番号：");
+				int editNo = stdIn.nextInt();
+				if (editNo >= 1 && editNo <= list.size()) {
+					Entry target = list.get(editNo - 1);
+					System.out.print("新しい日付（今：" + target.getDate() + "）：");
+					String nd = stdIn.next();
+					System.out.print("新しい区分（今：" + target.getClassification() + "）：");
+					String nc = stdIn.next();
+					System.out.print("新しい金額（今：" + target.getAmount() + "）：");
+					int na = stdIn.nextInt();
+					System.out.print("新しいメモ（今：" + target.getNote() + "）：");
+					String nn = stdIn.next();
+					list.set(editNo - 1, new Entry(nd, nc, na, nn));
+					System.out.println("編集しました");
+				} else {
+					System.out.println("その番号はありません");
+				}
+				break;
+			case 5:
 				System.out.print("集計する年月：");
 				String month = stdIn.next();
 				int income = 0;
@@ -96,7 +123,7 @@ public class Main {
 				System.out.println("支出：" + expense + "円");
 				System.out.println("差引：" + (income - expense) + "円");
 				break;
-			case 5:
+			case 6:
 				try (PrintWriter out = new PrintWriter("kakeibo.csv", "UTF-8")) {
 					for (Entry entry : list) {
 						out.println(entry.getDate() + ","
@@ -111,7 +138,7 @@ public class Main {
 				running = false;
 				break;
 			default:
-				System.out.println("1~5の番号を入力してください");
+				System.out.println("1~6の番号を入力してください");
 				break;
 			}
 

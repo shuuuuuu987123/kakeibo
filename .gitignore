@@ -6,6 +6,7 @@
 
 # runtime data
 kakeibo.csv
+.~lock.*
 
 # Eclipse workspace / project metadata
 .metadata/
